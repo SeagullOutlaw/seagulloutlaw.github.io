@@ -75,10 +75,10 @@
 
 <body bgcolor="#000000" text="#ffffff">
 
-<!-- Variables -->
+    <!-- Variables -->
 
-<script>
-            let survivorList = {
+    <script>
+        let survivorList = {
             ["Nami Deng"]: "Hard Times",
             ["Adriana Penn"]: "Self Control",
             ["Eiji Inagaki"]: "Old Camera",
@@ -148,8 +148,15 @@
             "The Surgeon",
             "The Voidskulk",
             "The Empress"
-    ]
-</script>
+        ]
+
+        if (localStorage.checkedSurvivors === null || localStorage.checkedSurvivors === undefined) {
+            localStorage.checkedSurvivors = [];
+        }
+        if (localStorage.checkedKillers === null || localStorage.checkedKillers === undefined) {
+            localStorage.checkedKillers = [];
+        }
+    </script>
 
 
 
@@ -196,11 +203,11 @@
             <label id="generatedCharacterLabel" class="resultlabel">Character:</label>
         </section>
 
-        
+
     </div>
 
 
-<!-- Killer Randomizer Tab -->
+    <!-- Killer Randomizer Tab -->
 
     <div id="Killer Randomizer Tab" class="tabcontent">
         <h2>Killer Randomizer</h2>
@@ -255,7 +262,7 @@
                         let perk = survivorList[element.name];
                         let addon = "'s";
 
-                        if (element.name.charAt(element.name.length-1) == 's') {
+                        if (element.name.charAt(element.name.length - 1) == 's') {
                             addon = "'";
                         }
 
@@ -325,15 +332,67 @@
 
         function ToggleAll(list, change) {
             let listElement = document.getElementById(list);
+            let type = ""
+
+            if (list === "SurvivorList") {
+                type = "Survivor";
+            } else if (list === "KillerList") {
+                type = "Killer";
+            }
 
             for (i = 0; i < listElement.children.length; i++) {
                 let element = listElement.children[i];
                 if (element.type == "checkbox") {
                     element.checked = change;
+                    SaveCheckboxOption(element.name, type);
                 }
 
             }
 
+        }
+
+        function SaveCheckboxOption(name, type) {
+            let checkbox = document.getElementById(name + "_Checkbox")
+            let array = []
+            let savedstring = "";
+            
+            if (type === "Survivor") {
+                savedstring = localStorage.checkedSurvivors;
+            } else if (type === "Killer") {
+                savedstring = localStorage.checkedKillers;
+            }
+
+
+            if (savedstring === "") {
+                array = []
+            } else {
+                array = savedstring.split(',');
+            }
+            
+
+
+            let i = 0;
+            while (i < array.length) {
+                if (array[i] === name) {
+                    array.splice(i, 1);
+                } else {
+                    i++;
+                }
+            }
+
+           
+            if (checkbox.checked === true) {
+                array.push(name);
+            }
+
+            savedstring = array.toString();
+
+            if (type === "Survivor") {
+                localStorage.setItem("checkedSurvivors", savedstring);
+            } else if (type === "Killer") {
+                localStorage.setItem("checkedKillers", savedstring);
+            }
+           
         }
 
     </script>
@@ -343,22 +402,28 @@
         let survivorTab = document.getElementById("SurvivorList")
         let killerTab = document.getElementById("KillerList")
 
-        let i = 0;
 
         for (let [survivorName, perkName] of Object.entries(survivorList)) {
             let checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
-            checkbox.setAttribute("id", "survivorCheckbox" + i.toString());
+            checkbox.setAttribute("id", survivorName + "_Checkbox");
             checkbox.setAttribute("name", survivorName);
             checkbox.setAttribute("value", survivorName);
+
+            checkbox.addEventListener("change", function() {
+                SaveCheckboxOption(survivorName, "Survivor");
+            }, false);
 
             let label = document.createElement("label");
             label.setAttribute("for", survivorName);
             label.innerHTML = survivorName + " (" + survivorList[survivorName] + ")" + "<br>";
 
+            if (localStorage.checkedSurvivors.includes(survivorName)) {
+                checkbox.checked = true;
+            }
+
             survivorTab.appendChild(checkbox);
             survivorTab.appendChild(label);
-            i++
         }
 
         for (i = 0; i < killerlist.length; i++) {
@@ -366,13 +431,20 @@
 
             let checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
-            checkbox.setAttribute("id", "killerCheckbox" + i.toString());
+            checkbox.setAttribute("id", killer + "_Checkbox");
             checkbox.setAttribute("name", killer);
             checkbox.setAttribute("value", killer);
+            checkbox.addEventListener("change", function() {
+                SaveCheckboxOption(killer, "Killer");
+            }, false);
 
             let label = document.createElement("label");
             label.setAttribute("for", killer);
             label.innerHTML = killer + "<br>";
+
+            if (localStorage.checkedKillers.includes(killer)) {
+                checkbox.checked = true;
+            }
 
             killerTab.appendChild(checkbox);
             killerTab.appendChild(label);
