@@ -1,23 +1,388 @@
 <html>
-  <head>
+
+<head>
     <title>DaybreakApp</title>
-  </head>
-  
-  <body bgcolor="#000000" text="#ffffff">
+
+    <style>
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: black;
+        }
+
+        .tab button {
+            background-color: transparent;
+            color: rgb(255, 255, 255);
+            float: left;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+
+        .tab button:hover {
+            background-color: grey;
+        }
+
+        .tab button.active {
+            background-color: rgb(83, 88, 88);
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: none;
+            border-top: none;
+            font-size: 20px;
+        }
+
+        .checkboxlist {
+            line-height: 1.4;
+            border: 1px solid #ccc;
+        }
+
+        .normalbutton {
+            background-color: rgb(104, 98, 98);
+            color: rgb(255, 255, 255);
+            border: 1px solid #ccc;
+            cursor: pointer;
+            padding: 10px 14px;
+            transition: 0.3s;
+        }
+
+        .generatebutton {
+            background-color: rgb(104, 98, 98);
+            color: rgb(255, 255, 255);
+            border: 1px solid #ccc;
+            cursor: pointer;
+            padding: 20px 30px;
+            transition: 0.3s;
+            font-size: 25px;
+        }
+
+        .resultsection {
+            line-height: 1.5;
+        }
+
+        .resultlabel {
+            display: inline-block;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body bgcolor="#000000" text="#ffffff">
+
+<!-- Variables -->
+
+<script>
+            let survivorList = {
+            ["Nami Deng"]: "Hard Times",
+            ["Adriana Penn"]: "Self Control",
+            ["Eiji Inagaki"]: "Old Camera",
+            ["Gabrielle Cole"]: "Tracking Machine",
+            ["Arlo Flores"]: "Healer's Touch",
+            ["Riley West"]: "Cheap Thrill",
+            ["Iris Daley"]: "Pot of Life",
+            ["Jun Inagaki"]: "Tough",
+            ["Yara Valle"]: "Second Wind",
+            ["Cora Madden"]: "Investigative Eye",
+            ["Mamo Ikaika"]: "Mamo's Bat",
+            ["Seoung Kwan"]: "Spiritual Connection",
+            ["Jack Sato"]: "Stealthy",
+            ["Chaoxing Lai"]: "Xingxing's Mic",
+            ["Dae-Jung Pak"]: "Charm",
+            ["Yeona Jeung"]: "Obsessed",
+            ["Kyle Wolfe"]: "Bear Trap",
+            ["Serena Wolfe"]: "Hunter's Instinct",
+            ["Yan Tian"]: "Detection Machine",
+            ["Nathan Reyes"]: "Wit's End",
+            ["Elizabeth Payne"]: "Self Assurance",
+            ["Yvonne Kojo"]: "Fight or Flight",
+            ["Becca Prescott"]: "Sole Survivor",
+            ["Sarah Lindholm"]: "Lone Wolf",
+            ["Lyndon Davenport"]: "Rauhm",
+            ["Dakari Bowens"]: "Heal Gun",
+            ["Saadiya Ali"]: "Course Control",
+            ["Elijah Songaa"]: "Breakthrough",
+            ["Eman Attia"]: "Evanesce",
+            ["Aaaqil Che"]: "Adaptability",
+            ["Yronica Ayala"]: "Egocentric Leech",
+            ["Callum Gallagher"]: "Team Spirit",
+            ["Emery Rivera"]: "Disappearing Act",
+            ["Amari Taymiyyah"]: "Vagrant's Trick",
+            ["Sanjana Dewan"]: "Quiet Steps",
+            ["Kelvin Mars"]: "Sonar Dart",
+            ["Gavin Prescott"]: "Gavin's Pistol",
+            ["Parker Kaplan"]: "Triple Mocktail",
+            ["Crosby Aldrich"]: "Royal Rule",
+            ["Rayner Byrne"]: "Rayner's Shield",
+            ["Serena 'Sera' Vera"]: "Smooth Skating",
+            ["Dakota Nicole"]: "Flame Sprayer",
+            ["Ryder Parikh"]: "Detail Oriented",
+            ["Makoto Shizuka"]: "Shortcut",
+            ["Crystal Kaur"]: "Clear Quartz",
+            ["Emil Singh"]: "Inspire"
+        }
+
+        let killerlist = [
+            "The Slasher",
+            "The Host",
+            "The Ghost",
+            "The Showstopper",
+            "The Unforgotten",
+            "The Werewolf",
+            "The Idol",
+            "The Android",
+            "The Warden",
+            "The Polluted",
+            "The Stalker",
+            "The Banshee",
+            "The Principal",
+            "The Janitor",
+            "The Apostate",
+            "The Watcher",
+            "The Surgeon",
+            "The Voidskulk",
+            "The Empress"
+    ]
+</script>
+
+
+
     <h1>DaybreakApp</h1>
 
-    <h2>Character and Perk Randomizer</h2>
-    This tool will give you a random perk you can use in your next game.<br>
-    It will also give you a random character which you can use if you have the perk unlocked.<br>
-    <br>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Survivor Randomizer Tab')" id="SurvivorRandomizerTab">Survivor
+            Randomizer</button>
+        <button class="tablinks" onclick="openTab(event, 'Killer Randomizer Tab')" id="KillerRandomizerTab">Killer
+            Randomizer</button>
+    </div>
 
-    Select all characters you own:
-    <section>
-        <script>
-            for ()
+    <!-- Survivor Randomizer Tab -->
 
-           document.createElement("input", { value: ""})
-        </script>
-    </section>
-  </body>
+    <div id="Survivor Randomizer Tab" class="tabcontent">
+        <h2>Survivor Randomizer</h2>
+        This tool will give you a random perk you can use in your next game.<br>
+        It will also give you a random character which you can use if you have the perk unlocked.<br>
+        <br>
+
+        Select all survivors you want to be part of the randomizer and then hit Generate!
+
+        <br>
+
+        (Tip: Use CTRL + F to search for a survivor or perk!)
+        <br><br>
+
+        <button class="normalbutton" onclick="ToggleAll('SurvivorList', true)">Activate all</button>
+        <button class="normalbutton" onclick="ToggleAll('SurvivorList', false)">Dectivate all</button>
+        <br><br>
+
+        <section id="SurvivorList" class="checkboxlist">
+
+        </section>
+
+        <br>
+
+        <button id="survivorGenerateButton" class="generatebutton" onclick="GetRandomSurvivor()">Generate!</button>
+
+        <br><br>
+
+        <section class="resultsection">
+            <label id="generatedPerkLabel" class="resultlabel">Perk:</label><br>
+            <label id="generatedCharacterLabel" class="resultlabel">Character:</label>
+        </section>
+
+        
+    </div>
+
+
+<!-- Killer Randomizer Tab -->
+
+    <div id="Killer Randomizer Tab" class="tabcontent">
+        <h2>Killer Randomizer</h2>
+        This tool will give you a random killer you can use in your next game.<br>
+        <br>
+
+        Select all killers you want to be part of the randomizer and then hit Generate!
+
+        <br>
+
+        (Tip: Use CTRL + F to search for a killer!)
+        <br><br>
+
+        <button class="normalbutton" onclick="ToggleAll('KillerList', true)">Activate all</button>
+        <button class="normalbutton" onclick="ToggleAll('KillerList', false)">Dectivate all</button>
+        <br><br>
+
+        <section id="KillerList" class="checkboxlist">
+
+        </section>
+
+        <br>
+
+        <button id="killerGenerateButton" class="generatebutton" onclick="GetRandomKiller()">Generate!</button>
+
+        <br><br>
+
+        <section class="resultsection">
+            <label id="generatedKillerLabel" class="resultlabel">Killer:</label>
+        </section>
+
+    </div>
+
+
+
+    <!-- Randomizer Functions -->
+
+    <script>
+        function GetRandomSurvivor() {
+            let survivorListElement = document.getElementById("SurvivorList");
+            let perkLabel = document.getElementById("generatedPerkLabel");
+            let characterLabel = document.getElementById("generatedCharacterLabel");
+            let survivorGenerateButton = document.getElementById("survivorGenerateButton");
+
+            let randomperkpool = []
+            let randomcharacterpool = []
+
+            for (i = 0; i < survivorListElement.children.length; i++) {
+                let element = survivorListElement.children[i];
+                if (element.type == "checkbox") {
+                    if (element.checked == true) {
+                        let perk = survivorList[element.name];
+                        let addon = "'s";
+
+                        if (element.name.charAt(element.name.length-1) == 's') {
+                            addon = "'";
+                        }
+
+                        randomperkpool.push(perk + " (" + element.name + addon + " perk)");
+                        randomcharacterpool.push(element.name);
+                    }
+                }
+            }
+
+            if (randomperkpool.length == 0) {
+                alert("You need to select at least one survivor!");
+            } else {
+
+                let randomperk = randomperkpool[Math.floor(Math.random() * randomperkpool.length)];
+                let randomcharacter = randomcharacterpool[Math.floor(Math.random() * randomcharacterpool.length)];
+
+
+                perkLabel.innerHTML = "Perk: " + randomperk;
+                characterLabel.innerHTML = "Character: " + randomcharacter;
+            }
+        }
+
+        function GetRandomKiller() {
+            let killerListElement = document.getElementById("KillerList");
+            let characterLabel = document.getElementById("generatedKillerLabel");
+            let randomcharacterpool = []
+
+            for (i = 0; i < killerListElement.children.length; i++) {
+                let element = killerListElement.children[i];
+                if (element.type == "checkbox") {
+                    if (element.checked == true) {
+                        randomcharacterpool.push(element.name);
+                    }
+                }
+            }
+
+            if (randomcharacterpool.length == 0) {
+                alert("You need to select at least one killer!");
+            } else {
+                let randomcharacter = randomcharacterpool[Math.floor(Math.random() * randomcharacterpool.length)];
+
+                characterLabel.innerHTML = "Killer: " + randomcharacter;
+            }
+        }
+
+    </script>
+
+    <!-- Website Functions -->
+
+    <script>
+        function openTab(event, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            tablinks = document.getElementsByClassName("tablinks");
+
+            for (i = 0; i < tablinks.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.className += " active";
+        }
+
+        function ToggleAll(list, change) {
+            let listElement = document.getElementById(list);
+
+            for (i = 0; i < listElement.children.length; i++) {
+                let element = listElement.children[i];
+                if (element.type == "checkbox") {
+                    element.checked = change;
+                }
+
+            }
+
+        }
+
+    </script>
+
+    <!-- Load XML and fill in variables -->
+    <script>
+        let survivorTab = document.getElementById("SurvivorList")
+        let killerTab = document.getElementById("KillerList")
+
+        let i = 0;
+
+        for (let [survivorName, perkName] of Object.entries(survivorList)) {
+            let checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("id", "survivorCheckbox" + i.toString());
+            checkbox.setAttribute("name", survivorName);
+            checkbox.setAttribute("value", survivorName);
+
+            let label = document.createElement("label");
+            label.setAttribute("for", survivorName);
+            label.innerHTML = survivorName + " (" + survivorList[survivorName] + ")" + "<br>";
+
+            survivorTab.appendChild(checkbox);
+            survivorTab.appendChild(label);
+            i++
+        }
+
+        for (i = 0; i < killerlist.length; i++) {
+            let killer = killerlist[i];
+
+            let checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("id", "killerCheckbox" + i.toString());
+            checkbox.setAttribute("name", killer);
+            checkbox.setAttribute("value", killer);
+
+            let label = document.createElement("label");
+            label.setAttribute("for", killer);
+            label.innerHTML = killer + "<br>";
+
+            killerTab.appendChild(checkbox);
+            killerTab.appendChild(label);
+        }
+
+    </script>
+
+
+    <!-- Open default tab -->
+    <script>
+        document.getElementById("SurvivorRandomizerTab").click();
+    </script>
+
+</body>
+
 </html>
