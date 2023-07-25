@@ -203,6 +203,9 @@
             <label id="generatedCharacterLabel" class="resultlabel">Character:</label>
         </section>
 
+        <br>
+
+        
 
     </div>
 
@@ -241,7 +244,7 @@
 
     </div>
 
-
+    <button class="normalbutton" style="float: right" onclick="ResetData()">Reset Data</button>
 
     <!-- Randomizer Functions -->
 
@@ -393,6 +396,13 @@
                 localStorage.setItem("checkedKillers", savedstring);
             }
            
+        }
+
+        function ResetData() {
+            localStorage.checkedSurvivors = "";
+            localStorage.checkedKillers = "";
+
+            alert("Data reset!");
         }
 
     </script>
