@@ -865,11 +865,18 @@
 
             if (setting === "CharacterAmount") {
                 if (isNaN(element.value)) {
-                    alert("Please enter a valid number!")
+                    alert("Please enter a valid number!");
+                    return;
                 } else {
                     let num = Number(element.value);
                     if (!Number.isInteger(num)) {
                         alert("Please enter a full number!");
+                        return;
+                    } else {
+                        if (num < 0) {
+                            alert("Please enter a positive number!");
+                            return;
+                        }
                     }
                 }
             }
@@ -878,12 +885,12 @@
 
             if (element.type === "checkbox") {
                 if (element.checked === true) {
-                    localStorage.setItem(setting, "True")
+                    localStorage.setItem(setting, "True");
                 } else {
-                    localStorage.setItem(setting, "False")
+                    localStorage.setItem(setting, "False");
                 }
             } else if (element.type === "text") {
-                localStorage.setItem(setting, element.value)
+                localStorage.setItem(setting, element.value);
             }
 
         }
@@ -892,8 +899,8 @@
 
     <!-- Load data and fill in variables -->
     <script>
-        let survivorTab = document.getElementById("SurvivorList")
-        let killerTab = document.getElementById("KillerList")
+        let survivorTab = document.getElementById("SurvivorList");
+        let killerTab = document.getElementById("KillerList");
 
         AddIDsToCollection()
 
